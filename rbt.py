@@ -215,25 +215,41 @@ class RBT():
                     x = self.root
         x.color = "B"
 
+    def bt_search(self, tree, x):
+        if tree != self.nil:
+            if x < tree.val:
+                return self.bt_search(tree.left, x)
+            elif x > tree.val:
+                return self.bt_search(tree.right, x)
+            else:
+                return tree
+        else:
+            return -1
 
-# rbt = RBT()
-# node5 = Node(5)
-# node2 = Node(2)
-# nodem4 = Node(-4)
-# node3 = Node(3)
-# node12 = Node(12)
-# node9 = Node(9)
-# node21 = Node(21)
-# node19 = Node(19)
-# node25 = Node(25)
-# rbt.rb_insert(node5)
-# rbt.rb_insert(node2)
-# rbt.rb_insert(nodem4)
-# rbt.rb_insert(node3)
-# rbt.rb_insert(node12)
-# rbt.rb_insert(node9)
-# rbt.rb_insert(node21)
-# rbt.rb_insert(node19)
-# rbt.rb_insert(node25)
-# # rbt.inorder_iter(rbt.root)
-# rbt.bt_print(rbt.root, 0)
+    def count_node(self):
+        total = 0
+        nb = 0
+        bh = 0
+        tree = self.root
+        stk = []
+        while len(stk) != 0 or tree.val != None:
+            if tree.val != None:
+                stk.append(tree)
+                tree = tree.left
+            else:
+                tree = stk.pop()
+                total += 1
+                if tree.color == "B":
+                    nb += 1
+                tree = tree.right
+        tree = self.root
+        while tree.left != self.nil:
+            if tree.color == "B":
+                bh += 1
+            tree = tree.left
+        print("total : ", end="")
+        print(total)
+        print("nb : ", end="")
+        print(nb)
+        print("bh : ", end="")
+        print(bh)
