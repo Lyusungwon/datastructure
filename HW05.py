@@ -13,7 +13,7 @@ with open('input.txt') as inputfile:
         elif x < 0:
             min = rbt.bt_search(rbt.root, np.absolute(x))
             if min == -1:
-                not_found.append(min)
+                not_found.append(x)
             else:
                 rbt.rb_delete(min)
         else:
