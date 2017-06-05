@@ -1,3 +1,6 @@
+# BFS
+
+
 class Queue:
 
     def __init__(self):
@@ -25,9 +28,58 @@ class Queue:
 
 class Vertex:
 
-    def __ init__(self):
+    def __init__(self, i):
+        self.val = i
+        self.color = None
+        self.d = None
+        self.pre = None
 
 
-def bfs(vertices, s):
-    for u in vertices:
-        if u.n != s.n:
+class Graph:
+
+    def __init__(self):
+        nil = Vertex()
+        self.vertices = []
+        self.edges = []
+        self.nil = nil
+
+    def bfs(self, s):
+        for u in vertices:
+            u.color = "W"
+            u.d = float("inf")
+            u.pre = nil
+        s.color = "G"
+        s.d = 0
+        s.pre = nil
+        Q = Queue()
+        Q.enqueue(s)
+        while not Q.is_empty:
+            u = Q.dequeue()
+            for v in G.adj[u]:
+                if v.color == "W":
+                    v.color = "G"
+                    v.d = u.d + 1
+                    v.pre = u
+                    Q.enqueue(v)
+            u.color = "B"
+
+    def dfs_visit(self, u):
+        time += 1
+        u.d = time
+        u.color = "G"
+        for v in G.adj[u]:
+            if v.color == "W":
+                v.pre = u
+                dfs(G, v)
+        u.color = "B"
+        time += 1
+        u.f = time
+
+    def dfs(self):
+        for u in G.V:
+            u.color = "W"
+            u.pre = nil
+        time = 0
+        for u in G.V:
+            if u.color == "W":
+                dfs_visit(G, u)

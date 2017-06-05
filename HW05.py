@@ -19,4 +19,7 @@ with open('input.txt') as inputfile:
         else:
             rbt.count_node()
             rbt.inorder_iter(rbt.root)
-            print()
+            print(" ")
+            break
+
+inputfile.close()
