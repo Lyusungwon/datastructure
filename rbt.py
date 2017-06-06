@@ -125,7 +125,7 @@ class RBT():
         if y.right != self.nil:
             y.right.parent = x
         y.parent = x.parent
-        if y.parent == self.nil:
+        if x.parent == self.nil:
             self.root = y
         elif x.parent.left == x:
             x.parent.left = y
