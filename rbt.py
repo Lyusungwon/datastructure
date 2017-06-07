@@ -102,6 +102,7 @@ class RBT():
             else:
                 tree = stk.pop()
                 print(tree.val, end=" ")
+                print(tree.color)
                 tree = tree.right
 
     def left_rotate(self, x):
@@ -226,8 +227,7 @@ class RBT():
         else:
             return -1
 
-    def count_node(self):
-        total = 0
+    def count(self):
         nb = 0
         bh = 0
         tree = self.root
@@ -238,7 +238,6 @@ class RBT():
                 tree = tree.left
             else:
                 tree = stk.pop()
-                total += 1
                 if tree.color == "B":
                     nb += 1
                 tree = tree.right
@@ -247,9 +246,5 @@ class RBT():
             if tree.color == "B":
                 bh += 1
             tree = tree.left
-        print("total : ", end="")
-        print(total)
-        print("nb : ", end="")
-        print(nb)
-        print("bh : ", end="")
-        print(bh)
+        print("nb =", nb)
+        print("bh =", bh)
