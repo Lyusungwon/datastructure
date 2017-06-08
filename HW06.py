@@ -2,13 +2,14 @@
 
 import rbt as rb
 import numpy as np
+
 rbt = rb.RBT()
 results = []
 missed = []
 insert = 0
 deleted = 0
 with open('input.txt') as inputfile:
-    print("file name = ", inputfile.name)
+    print("file name =", inputfile.name)
     for line in inputfile:
         x = int(line)
         if x > 0:
@@ -28,7 +29,6 @@ with open('input.txt') as inputfile:
             print("miss =", len(missed))
             rbt.count()
             rbt.inorder_iter(rbt.root)
-            print(" ")
             break
 
 inputfile.close()
