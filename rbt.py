@@ -11,24 +11,22 @@ class Node():
         self.color = "B"
 
 
-def tree_min(tree):
-    while tree.left.val != None:
-        tree = tree.left
-    return tree
-
-
-def tree_max(tree):
-    while tree.right.val != None:
-        tree = tree.right
-    return tree
-
-
 class RBT():
 
     def __init__(self):
-        nil = Node(None)
+        nil = Node("Nil")
         self.root = nil
         self.nil = nil
+
+    def tree_min(self, tree):
+        while tree.left != self.nil:
+            tree = tree.left
+        return tree
+
+    def tree_max(self, tree):
+        while tree.right != self.nil:
+            tree = tree.right
+        return tree
 
     def rb_insert(self, z):
         y = self.nil
@@ -95,8 +93,8 @@ class RBT():
 
     def inorder_iter(self, tree):
         stk = []
-        while len(stk) != 0 or tree.val != None:
-            if tree.val != None:
+        while len(stk) != 0 or tree != self.nil:
+            if tree != self.nil:
                 stk.append(tree)
                 tree = tree.left
             else:
@@ -154,7 +152,7 @@ class RBT():
             x = z.left
             self.rb_transplant(z, z.left)
         else:
-            y = tree_min(z.right)
+            y = self.tree_min(z.right)
             yoc = y.color
             x = y.right
             if y.parent == z:
@@ -227,6 +225,29 @@ class RBT():
         else:
             return -1
 
+    def search_print(self, node):
+        tree = self.root
+        x = self.nil
+        while tree != self.nil and tree.val != node:
+            if node < tree.val:
+                x = tree
+                tree = tree.left
+            else:
+                x = tree
+                tree = tree.right
+        if tree != self.nil:
+            print(self.bt_predecessor(tree).val, end=" ")
+            print(tree.val, end=" ")
+            print(self.bt_successor(tree).val)
+        elif node < x.val:
+            print(self.lf_predecessor(x).val, end=" ")
+            print("Nil", end=" ")
+            print(x.val)
+        else:
+            print(x.val, end=" ")
+            print("Nil", end=" ")
+            print(self.lf_successor(x).val)
+
     def count(self):
         nb = 0
         bh = 0
@@ -248,3 +269,41 @@ class RBT():
             tree = tree.left
         print("nb =", nb)
         print("bh =", bh)
+
+    def bt_predecessor(self, x):
+        if x.left != self.nil:
+            return self.tree_max(x.left)
+        y = x.parent
+        while y and x == y.left:
+            x = y
+            y = y.parent
+        return y
+
+    def bt_successor(self, x):
+        if x.right != self.nil:
+            return self.tree_min(x.right)
+        y = x.parent
+        while y and x == y.right:
+            x = y
+            y = y.parent
+        return y
+
+    def lf_predecessor(self, x):
+        if x == x.parent.right:
+            return x.parent
+        else:
+            y = x.parent
+            while y and x == y.left:
+                x = y
+                y = y.parent
+            return y
+
+    def lf_successor(self, x):
+        if x == x.parent.left:
+            return x.parent
+        else:
+            y = x.parent
+            while y and x == y.right:
+                x = y
+                y = y.parent
+            return y

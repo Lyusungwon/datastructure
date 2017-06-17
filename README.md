@@ -1,3 +1,3 @@
 # datastructure
 
-## HW05 / HW06 Updated
+## HW05 / HW05-2 Updated
