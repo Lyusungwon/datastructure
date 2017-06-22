@@ -38,12 +38,15 @@ class RBT():
             else:
                 x = x.right
         z.parent = y
+
         if y == self.nil:
             self.root = z
+
         elif z.val < y.val:
             y.left = z
         else:
             y.right = z
+
         z.left = self.nil
         z.right = self.nil
         z.color = "R"
@@ -58,10 +61,10 @@ class RBT():
                     y.color = "B"
                     z.parent.parent.color = "R"
                     z = z.parent.parent
-                elif z == z.parent.right:
-                    z = z.parent
-                    self.left_rotate(z)
                 else:
+                    if z == z.parent.right:
+                        z = z.parent
+                        self.left_rotate(z)
                     z.parent.color = "B"
                     z.parent.parent.color = "R"
                     self.right_rotate(z.parent.parent)
@@ -72,10 +75,10 @@ class RBT():
                     y.color = "B"
                     z.parent.parent.color = "R"
                     z = z.parent.parent
-                elif z == z.parent.left:
-                    z = z.parent
-                    self.right_rotate(z)
                 else:
+                    if z == z.parent.left:
+                        z = z.parent
+                        self.right_rotate(z)
                     z.parent.color = "B"
                     z.parent.parent.color = "R"
                     self.left_rotate(z.parent.parent)
@@ -225,7 +228,7 @@ class RBT():
         else:
             return -1
 
-    def search_print(self, node):
+    def search_write(self, node, outputfile):
         tree = self.root
         x = self.nil
         while tree != self.nil and tree.val != node:
@@ -236,25 +239,25 @@ class RBT():
                 x = tree
                 tree = tree.right
         if tree != self.nil:
-            print(self.bt_predecessor(tree).val, end=" ")
-            print(tree.val, end=" ")
-            print(self.bt_successor(tree).val)
+            print(self.bt_predecessor(tree).val, end=" ", file=outputfile)
+            print(tree.val, end=" ", file=outputfile)
+            print(self.bt_successor(tree).val, file=outputfile)
         elif node < x.val:
-            print(self.lf_predecessor(x).val, end=" ")
-            print("Nil", end=" ")
-            print(x.val)
+            print(self.lf_predecessor(x).val, end=" ", file=outputfile)
+            print("Nil", end=" ", file=outputfile)
+            print(x.val, file=outputfile)
         else:
-            print(x.val, end=" ")
-            print("Nil", end=" ")
-            print(self.lf_successor(x).val)
+            print(x.val, end=" ", file=outputfile)
+            print("Nil", end=" ", file=outputfile)
+            print(self.lf_successor(x).val, file=outputfile)
 
     def count(self):
         nb = 0
         bh = 0
         tree = self.root
         stk = []
-        while len(stk) != 0 or tree.val != None:
-            if tree.val != None:
+        while len(stk) != 0 or tree != self.nil:
+            if tree != self.nil:
                 stk.append(tree)
                 tree = tree.left
             else:

@@ -2,14 +2,12 @@ from collections import defaultdict
 # DFS
 
 
-class Vertex:
+class Vertex():
 
     def __init__(self, i):
         self.name = i
-        self.n = None
         self.color = None
-        self.parent = None
-        self.first = None
+        self.pre = None
 
 
 class DFSVertex(Vertex):
@@ -20,7 +18,7 @@ class DFSVertex(Vertex):
         self.f = 0
 
 
-class DFS:
+class DFS():
 
     def __init__(self, connections):
         self.time = 0
@@ -38,7 +36,7 @@ class DFS:
     def dfs(self):
         for u in self.vertices:
             u.color = "W"
-            u.parent = -1
+            u.pre = None
         self.time = 0
         for u in self.vertices:
             if u.color == "W":
@@ -48,16 +46,25 @@ class DFS:
         self.time += 1
         u.d = self.time
         u.color = "G"
-        v = u.first
-        while v:
-            if self.vertices[v.n].color == "W":
-                self.vertices[v.n].parent = u.n
-                self.dfs_visit(self.vertices[v.n])
-            v = v.next
+        for v in self.adj[u]:
+            if v.color == "W":
+                v.pre = u.name
+                self.dfs_visit(v)
         u.color = "B"
         self.time += 1
         u.f = self.time
 
+    # def scc(self):
+    #     self.dfs()
+    #     self.transpose()
+    #     sorted = self.sort_by_f()
+    #     vset = self.vertices
+    #     for v in vset:
+    #         v.color = "W"
+    #         v.pre = -1
+    #     for n in sorted:
+    #         if self.vertices[n].color == "W":
+    #             self.scc_find(vset[n])
 
 a = DFSVertex("a")
 b = DFSVertex("b")
@@ -68,42 +75,8 @@ f = DFSVertex("f")
 g = DFSVertex("g")
 h = DFSVertex("h")
 connections = [(a, b), (b, c), (b, e), (b, f), (c, d), (c, g), (d, c), (d, h), (e, a), (e, f), (f, g), (g, f), (g, h), (h, h)]
-g = DFS(connections)
-g.dfs()
-
-
-# def remove(self, node):
-#     """ Remove all references to node """
-
-#     for n, cxns in self._graph.iteritems():
-#         try:
-#             cxns.remove(node)
-#         except KeyError:
-#             pass
-#     try:
-#         del self._graph[node]
-#     except KeyError:
-#         pass
-
-# def is_connected(self, node1, node2):
-#     """ Is node1 directly connected to node2 """
-
-#     return node1 in self._graph and node2 in self._graph[node1]
-
-# def find_path(self, node1, node2, path=[]):
-#     """ Find any path between node1 and node2 (may not be shortest) """
-
-#     path = path + [node1]
-#     if node1 == node2:
-#         return path
-#     if node1 not in self._graph:
-#         return None
-#     for node in self._graph[node1]:
-#         if node not in path:
-#             new_path = self.find_path(node, node2, path)
-#             if new_path:
-#                 return new_path
-#     return None
-
-# def __str__(self):
-#     return '{}({})'.format(self.__class__.__name__, dict(self._graph))
+dfs = DFS(connections)
+dfs.dfs()
+print([i.name for i in dfs.vertices])
+for u in dfs.vertices:
+    print(u.name, u.color, u.pre, u.d, u.f, [i.name for i in dfs.adj[u]])

@@ -10,11 +10,11 @@ class Node():
         self.right = None
         self.bf = 0
 
-    def is_left_child(self):
-        return self.parent.left == self
+    # def is_left_child(self):
+    #     return self.parent.left == self
 
-    def is_right_child(self):
-        return self.parent.right == self
+    # def is_right_child(self):
+    #     return self.parent.right == self
 
 
 def tree_min(tree):
@@ -65,9 +65,9 @@ class AVL():
         if 1 < n.bf or n.bf < -1:
             self.avl_rebalance(n)
         elif n.parent:
-            if n.is_left_child():
+            if n.parent.left == n:
                 n.parent.bf += 1
-            elif n.is_right_child():
+            else:
                 n.parent.bf -= 1
             if n.parent.bf != 0:
                 self.avl_updatebf(n.parent)
@@ -76,15 +76,11 @@ class AVL():
         if n.bf < 0:
             if n.right.bf > 0:
                 self.rotate_right(n.right)
-                self.rotate_left(n)
-            else:
-                self.rotate_left(n)
+            self.rotate_left(n)
         elif n.bf > 0:
             if n.left.bf < 0:
                 self.rotate_left(n.left)
-                self.rotate_right(n)
-            else:
-                self.rotate_right(n)
+            self.rotate_right(n)
 
     def rotate_left(self, x):
         y = x.right

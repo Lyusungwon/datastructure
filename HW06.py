@@ -5,7 +5,7 @@ import numpy as np
 
 rbt = rb.RBT()
 missed = []
-with open('input.txt') as inputfile:
+with open('test01.txt') as inputfile:
     for line in inputfile:
         x = int(line)
         if x > 0:
@@ -20,8 +20,10 @@ with open('input.txt') as inputfile:
             break
 inputfile.close()
 
-with open('search.txt') as inputfile:
-    for line in inputfile:
-        x = int(line)
-        rbt.search_print(x)
+inputfile = open('search01.txt', 'r')
+outputfile = open('output01.txt', 'w')
+for line in inputfile:
+    x = int(line)
+    rbt.search_write(x, outputfile)
+outputfile.close()
 inputfile.close()
