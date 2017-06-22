@@ -228,28 +228,7 @@ class RBT():
         else:
             return -1
 
-    def search_write(self, node, outputfile):
-        tree = self.root
-        x = self.nil
-        while tree != self.nil and tree.val != node:
-            if node < tree.val:
-                x = tree
-                tree = tree.left
-            else:
-                x = tree
-                tree = tree.right
-        if tree != self.nil:
-            print(self.bt_predecessor(tree).val, end=" ", file=outputfile)
-            print(tree.val, end=" ", file=outputfile)
-            print(self.bt_successor(tree).val, file=outputfile)
-        elif node < x.val:
-            print(self.lf_predecessor(x).val, end=" ", file=outputfile)
-            print("Nil", end=" ", file=outputfile)
-            print(x.val, file=outputfile)
-        else:
-            print(x.val, end=" ", file=outputfile)
-            print("Nil", end=" ", file=outputfile)
-            print(self.lf_successor(x).val, file=outputfile)
+# HW5
 
     def count(self):
         nb = 0
@@ -272,6 +251,30 @@ class RBT():
             tree = tree.left
         print("nb =", nb)
         print("bh =", bh)
+
+# HW6
+    def search_write(self, node, outputfile):
+        tree = self.root
+        x = self.nil
+        while tree != self.nil and tree.val != node:
+            if node < tree.val:
+                x = tree
+                tree = tree.left
+            else:
+                x = tree
+                tree = tree.right
+        if tree != self.nil:
+            print(self.bt_predecessor(tree).val, end=" ", file=outputfile)
+            print(tree.val, end=" ", file=outputfile)
+            print(self.bt_successor(tree).val, file=outputfile)
+        elif node < x.val:
+            print(self.lf_predecessor(x).val, end=" ", file=outputfile)
+            print("Nil", end=" ", file=outputfile)
+            print(x.val, file=outputfile)
+        else:
+            print(x.val, end=" ", file=outputfile)
+            print("Nil", end=" ", file=outputfile)
+            print(self.lf_successor(x).val, file=outputfile)
 
     def bt_predecessor(self, x):
         if x.left != self.nil:
