@@ -254,6 +254,8 @@ class RBT():
 
 # HW6
     def search_write(self, node, outputfile):
+        if node == 0:
+            return -1
         tree = self.root
         x = self.nil
         while tree != self.nil and tree.val != node:
