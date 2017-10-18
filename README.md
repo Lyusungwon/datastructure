@@ -1,3 +1,3 @@
-# datastructure
+# 2017 KU datastructure
 
-## HW05 / HW05-2 Updated
+## Review / Assignment
